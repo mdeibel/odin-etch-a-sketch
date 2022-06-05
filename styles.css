@@ -10,10 +10,6 @@
     aspect-ratio: 1/1;
 }
 
-.tile.touched {
-    background-color: black;
-}
-
 button {
     display: flex;
     margin: 10px auto;

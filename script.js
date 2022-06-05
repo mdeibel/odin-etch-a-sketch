@@ -23,18 +23,30 @@ function clearExistingGrid() {
 function registerMouseMoveListeners() {
     let tiles = document.querySelectorAll('.tile');
     tiles.forEach(tile => {
-        tile.addEventListener('mousemove', () => {
-            tile.classList.add('touched');
+        let brightness = 1;
+        tile.addEventListener('mouseenter', () => {
+            if (tile.classList.contains('touched')) {
+                brightness -= .1;
+                tile.style.filter = `brightness(${brightness})`;
+            }
+            else {
+                tile.classList.add('touched');
+                tile.style.backgroundColor = random_rgb();
+            }
         })
     })
 }
 
+function random_rgb() {
+    var o = Math.round, r = Math.random, s = 255;
+    return `rgb(${o(r() * s)},${o(r() * s)},${o(r() * s)})`;
+}
+
 generateNewGrid(50);
-registerMouseMoveListeners();
 
 let button = document.querySelector('button');
 button.addEventListener('click', () => {
-    let userInput = prompt("Enter number of squares per side: ");
+    let userInput = prompt("Enter number of squares per side (1-100): ");
     let dimension = (userInput > 100) ? 100 : (userInput < 1) ? 1 : userInput;
     generateNewGrid(dimension);
 });
